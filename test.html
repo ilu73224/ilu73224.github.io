@@ -3,7 +3,7 @@
   <meta charset="UTF-8" />
   <!--<script src="util.js" type="text/javascript" charset="utf-8"></script>-->
 </head>
-<h1>2019/03/28 15:57</h1>
+<h1>2019/03/28 16:01</h1>
 <body>
 <video controls></video>
 <div id="result"></div>
@@ -18,8 +18,8 @@ var curTime = 0;
 var videoTime = 0;
 var times = 0;
 
-var assetURL = '123.mp4';
-var mimeCodec = 'video/mp4; codecs="avc1, mp4a.40.2"';
+var assetURL = 'frag_bunny.mp4';
+var mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
 if ('MediaSource' in window && MediaSource.isTypeSupported(mimeCodec)) {
     var mediaSource = new MediaSource;
     //console.log(mediaSource.readyState); // closed
