@@ -1,13 +1,11 @@
 <html>
 <head>
-	<meta charset="UTF-8" />
-	<title>Video Player</title>
-	<link rel="stylesheet" type="text/css" href="test.css">
-	<script src="util.js" type="text/javascript" charset="utf-8"></script>
+  <meta charset="UTF-8" />
+  <script src="util.js" type="text/javascript" charset="utf-8"></script>
 </head>
-<h1>2019/03/28 16:20</h1>
+<h1>2019/03/28 16:23</h1>
 <body>
-<video id="video" src="123.mp4" controls autoplay />
+<video id="video" src="123.mp4" autoplay />
 <p id="result"></p>
 </body>
 
@@ -20,35 +18,35 @@ var baseTimeDiff = 0;
 var curTime = 0;
 var videoTime = 0;
 var times = 0;
+
 video.addEventListener('canplay', function() {
-	console.log("canplay");
-	video.play();
-	
-	video.addEventListener('timeupdate', function() {
-		if (times === 0) {
-		curTime = util.ElapsedTimeInS();
-		videoTime = video.currentTime;
-          baseTimeDiff = curTime - videoTime;
-	  result.innerHTML += "["+times+"] baseTimeDiff:"+baseTimeDiff;
-	  result.innerHTML += " curTime:"+curTime+" videoTime:"+videoTime+"<br>";
-        } else {
-		curTime = util.ElapsedTimeInS();
-		videoTime = video.currentTime;
-          var timeDiff = curTime - videoTime;
-	  result.innerHTML += "["+times+"] timeDiff:"+timeDiff;
-	  result.innerHTML += " curTime:"+curTime+" videoTime:"+videoTime+"<br>";	
-          maxTimeDiff = Math.max(
+  console.log("canplay");
+  video.play();
+  video.addEventListener('timeupdate', function() {
+    if (times === 0) {
+      curTime = util.ElapsedTimeInS();
+      videoTime = video.currentTime;
+      baseTimeDiff = curTime - videoTime;
+      result.innerHTML += "["+times+"] baseTimeDiff:"+baseTimeDiff;
+      result.innerHTML += " curTime:"+curTime+" videoTime:"+videoTime+"<br>";
+    } else {
+      curTime = util.ElapsedTimeInS();
+      videoTime = video.currentTime;
+      var timeDiff = curTime - videoTime;
+      result.innerHTML += "["+times+"] timeDiff:"+timeDiff;
+      result.innerHTML += " curTime:"+curTime+" videoTime:"+videoTime+"<br>";	
+      maxTimeDiff = Math.max(
               Math.abs(timeDiff - baseTimeDiff), maxTimeDiff);
-        }
-        if (times > 500 || video.currentTime > 10) {
-          //util.Round(maxTimeDiff, 2);
-          console.log("maxTimeDiff:"+maxTimeDiff+"\n");
-          result.innerHTML += "["+times+"] maxTimeDiff:"+maxTimeDiff+"<br>";
-          //runner.checkLE(maxTimeDiff, 0.25, 'maxTimeDiff');
-          //runner.succeed();
-        }
-        ++times;
-		});
-	});
+    }
+    if (times > 500 || video.currentTime > 10) {
+      //util.Round(maxTimeDiff, 2);
+      console.log("maxTimeDiff:"+maxTimeDiff+"\n");
+      result.innerHTML += "["+times+"] maxTimeDiff:"+maxTimeDiff+"<br>";
+      //runner.checkLE(maxTimeDiff, 0.25, 'maxTimeDiff');
+      //runner.succeed();
+    }
+    ++times;
+  });
+});
 </script>
 </html>
