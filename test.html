@@ -1,9 +1,10 @@
 <html>
 <head>
   <meta charset="UTF-8" />
+  <link rel="stylesheet" type="text/css" href="test.css">
   <script src="util.js" type="text/javascript" charset="utf-8"></script>
 </head>
-<h1>2019/03/28 16:29</h1>
+<h1>2019/03/28 16:38</h1>
 <body>
 <video id="video" src="123.mp4" autoplay>
   <div>This browser does not support HTML5 video.</div>
@@ -30,20 +31,20 @@ video.addEventListener('canplay', function() {
       videoTime = video.currentTime;
       baseTimeDiff = curTime - videoTime;
       result.innerHTML += "["+times+"] baseTimeDiff:"+baseTimeDiff;
-      result.innerHTML += " curTime:"+curTime+" videoTime:"+videoTime+"<br>";
+      result.innerHTML += " curTime:"+curTime+" videoTime:"+videoTime+"<br />";
     } else {
       curTime = util.ElapsedTimeInS();
       videoTime = video.currentTime;
       var timeDiff = curTime - videoTime;
       result.innerHTML += "["+times+"] timeDiff:"+timeDiff;
-      result.innerHTML += " curTime:"+curTime+" videoTime:"+videoTime+"<br>";	
+      result.innerHTML += " curTime:"+curTime+" videoTime:"+videoTime+"<br />";	
       maxTimeDiff = Math.max(
               Math.abs(timeDiff - baseTimeDiff), maxTimeDiff);
     }
     if (times > 500 || video.currentTime > 10) {
       //util.Round(maxTimeDiff, 2);
       console.log("maxTimeDiff:"+maxTimeDiff+"\n");
-      result.innerHTML += "["+times+"] maxTimeDiff:"+maxTimeDiff+"<br>";
+      result.innerHTML += "["+times+"] maxTimeDiff:"+maxTimeDiff+"<br />";
       //runner.checkLE(maxTimeDiff, 0.25, 'maxTimeDiff');
       //runner.succeed();
     }
