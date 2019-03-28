@@ -36,7 +36,7 @@ video.addEventListener('canplay', function() {
         if (times > 500 || video.currentTime > 10) {
           //util.Round(maxTimeDiff, 2);
           console.log("maxTimeDiff:"+maxTimeDiff);
-          result.innerHTML += "["+times+"] maxTimeDiff:"+maxTimeDiff;
+          result.innerHTML = "["+times+"] maxTimeDiff:"+maxTimeDiff;
           //runner.checkLE(maxTimeDiff, 0.25, 'maxTimeDiff');
           //runner.succeed();
         }
