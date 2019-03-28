@@ -4,11 +4,9 @@
 	<link rel="stylesheet" type="text/css" href="test.css">
 	<script src="util.js" type="text/javascript" charset="utf-8"></script>
 </head>
-<h1>2019/03/28 14:54</h1>
+<h1>2019/03/28 15:00</h1>
 <body>
 <video id="video" controls>
-	<source src="123.mp4"  type="video/mp4">
-	<div>This browser does not support HTML5 video.</div>
 </video>
 <div id="result"></div>
 </body>
@@ -22,10 +20,42 @@ var baseTimeDiff = 0;
 var curTime = 0;
 var videoTime = 0;
 var times = 0;
-
-video.addEventListener('canplay', function() {
-	console.log("canplay");
-	video.play();
+var assetURL = '123.mp4';
+var mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
+    if ('MediaSource' in window && MediaSource.isTypeSupported(mimeCodec)) {
+        var mediaSource = new MediaSource;
+        //console.log(mediaSource.readyState); // closed
+        video.src = URL.createObjectURL(mediaSource);
+        mediaSource.addEventListener('sourceopen', sourceOpen);
+      } else {
+        console.error('Unsupported MIME type or codec: ', mimeCodec);
+      }
+function sourceOpen (_) {
+        //console.log(this.readyState); // open
+        var mediaSource = this;
+        var sourceBuffer = mediaSource.addSourceBuffer(mimeCodec);
+        fetchAB(assetURL, function (buf) {
+          sourceBuffer.addEventListener('updateend', function (_) {
+            mediaSource.endOfStream();
+            video.play();
+            //console.log(mediaSource.readyState); // ended
+          });
+          sourceBuffer.appendBuffer(buf);
+        });
+      };
+      function fetchAB (url, cb) {
+        console.log(url);
+        var xhr = new XMLHttpRequest;
+        xhr.open('get', url);
+        xhr.responseType = 'arraybuffer';
+        xhr.onload = function () {
+          cb(xhr.response);
+        };
+        xhr.send();
+      };
+//video.addEventListener('canplay', function() {
+//	console.log("canplay");
+//	video.play();
 	
 	video.addEventListener('timeupdate', function() {
 		if (times === 0) {
@@ -53,6 +83,6 @@ video.addEventListener('canplay', function() {
         }
         ++times;
 		});
-	});
+	//});
 </script>
 </html>
