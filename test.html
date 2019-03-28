@@ -3,10 +3,10 @@
   <meta charset="UTF-8" />
   <script src="util.js" type="text/javascript" charset="utf-8"></script>
 </head>
-<h1>2019/03/28 16:23</h1>
+<h1>2019/03/28 16:27</h1>
 <body>
 <video id="video" src="123.mp4" autoplay />
-<p id="result"></p>
+<div id="result"></div>
 </body>
 
 <script>
@@ -18,7 +18,7 @@ var baseTimeDiff = 0;
 var curTime = 0;
 var videoTime = 0;
 var times = 0;
-
+result.innerHTML = "Page loaded...";
 video.addEventListener('canplay', function() {
   console.log("canplay");
   video.play();
